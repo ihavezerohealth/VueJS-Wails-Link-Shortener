@@ -94,7 +94,7 @@ form {
     margin-right:0px;
     border: 1px solid steelblue;
     font-family: Poppins, sans-serif;
-    border-radius: 12px;
+
 }
 #submit-button {
     border: 1px solid steelblue;
