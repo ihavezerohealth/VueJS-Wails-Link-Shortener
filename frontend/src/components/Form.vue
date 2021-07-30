@@ -2,7 +2,7 @@
     <form @submit.prevent="formSubmit">
         <div class="form-control">
             <label>Link to Shorten:</label>
-            <input type="text" v-model="form.link" name="thisistheformlink" placeholder="Link">
+            <input type="text" v-model="form.link" placeholder="Link">
         </div>
         <div class="form-control">
             <label>Service to use:</label>
@@ -23,21 +23,22 @@
     export default {
         name: "Form",
         data: () => ({
-                form: {
-                    link: "https://github.com/ihavezerohealth",
-                    service: "bit.ly",
-                    checked: false,
-                }
+            form: {
+                link: "https://github.com/ihavezerohealth",
+                service: "bit.ly",
+                checked: false,
+            }
         }),
         methods: {
             formSubmit() {
+                console.log(`In formSubmit(): ${this.form.link}`)
                 if (!this.form.checked) {
                     return alert("Please confirm you want to carry out the operation!")
                 }
                 if (!this.form.link.length < 0) {
                     return alert("Please enter a link to shorten!")
                 }
-                this.$emit("submit", this.form);
+                this.$emit("submit", this.form.link);
             }
         }
     }

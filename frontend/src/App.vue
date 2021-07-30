@@ -2,9 +2,10 @@
     <div id="app">
         <div class="container">
             <Title title="Link Shortener"/>
-            <Form @submit="passFormToBackend(form)"/>
+            <Form @submit="passFormToBackend(formlink)"/>
             <h1>{{link}}</h1>
         </div>
+        <button @click="link = ''">Clear Link</button>
         <!--
         <LearnMore v-show="learningMore"/>
         <CopyrightAndAbout @learnMoreClicked="toggleLearnMore()"/>
@@ -30,19 +31,18 @@ import Form from './components/Form.vue'
             //toggleLearnMore () {
             //    this.learningMore = !(this.learningMore);
             //},
-            async passFormToBackend(form) {
+            async passFormToBackend(formlink) {
                 /* eslint-disable no-unused-vars */
                 var link = "";
                 this.link = "";
-                console.log(form);
-                console.log(form.thisistheformlink);
+                console.log(formlink);
                 let response = await fetch('https://api-ssl.bitly.com/v4/shorten', {
                     method: 'POST',
                     headers: {
                         'Authorization': 'dc6bd94d1d19f0e027c070a0fd0eb47238e72ff3',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ "long_url": form.thisistheformlink, "domain": "bit.ly" })
+                    body: JSON.stringify({ "long_url": formlink, "domain": "bit.ly" })
                 })
                 link = await response.json();
                 console.log(link);
@@ -67,7 +67,7 @@ import Form from './components/Form.vue'
             showAbout: false,
             link: '',
             form: {
-                link: 'https://github.com/ihavezerohealth',
+                link: null,
                 service: 'bitly',
             }
         })
@@ -80,12 +80,12 @@ body {
     font-family: Poppins, sans-serif;
 }
 .container {
-  max-width: 500px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
+    max-width: 500px;
+    margin: 30px auto;
+    overflow: auto;
+    min-height: 300px;
+    border: 1px solid steelblue;
+    padding: 30px;
+    border-radius: 5px;
 }
 </style>
