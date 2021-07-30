@@ -2,7 +2,7 @@
     <div id="app">
         <div class="container">
             <Title title="Link Shortener"/>
-            <Form @submit="passFormToBackend(formlink)"/>
+            <Form @submit="passFormToBackend"/>
             <h1>{{link}}</h1>
         </div>
         <button @click="link = ''">Clear Link</button>
@@ -31,18 +31,18 @@ import Form from './components/Form.vue'
             //toggleLearnMore () {
             //    this.learningMore = !(this.learningMore);
             //},
-            async passFormToBackend(formlink) {
+            async passFormToBackend(form) {
                 /* eslint-disable no-unused-vars */
                 var link = "";
                 this.link = "";
-                console.log(formlink);
+                console.log(form);
                 let response = await fetch('https://api-ssl.bitly.com/v4/shorten', {
                     method: 'POST',
                     headers: {
                         'Authorization': 'dc6bd94d1d19f0e027c070a0fd0eb47238e72ff3',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ "long_url": formlink, "domain": "bit.ly" })
+                    body: JSON.stringify({ "long_url": form.link, "domain": "bit.ly" })
                 })
                 link = await response.json();
                 console.log(link);
@@ -84,8 +84,15 @@ body {
     margin: 30px auto;
     overflow: auto;
     min-height: 300px;
-    border: 1px solid steelblue;
+    border: 2px solid steelblue;
     padding: 30px;
-    border-radius: 5px;
+    border-radius: 12px;
+}
+#app {
+    justify-content: center;
+    text-align: center;
+}
+button {
+    font-family: Poppins, sans-serif;
 }
 </style>
